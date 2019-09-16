@@ -18,7 +18,7 @@ int main() {
     string direction;
     string::iterator itr;
     scanf("%d %d",&x0,&y0);
-    bool *a1=new bool[2*(x0+y0+2)]; *a1={0};
+    bool *a1=new bool[2*(x0+y0)]; *a1={0};
     while(scanf("%d %d %c",&xn,&yn,&orientation)==3){
         cin>>direction;
         for(itr=direction.begin();itr!=direction.end() && !lost;++itr){
@@ -28,22 +28,22 @@ int main() {
                         case 'N':
                             if(yn<y0) ++yn;
                             else if(yn==y0 && !a1[xn]) ++yn;
-                            if(yn>y0) {if(xn==0) a1[2*(x0+y0)+3]=1;if(xn==x0) a1[x0+1]=1;a1[xn]=1;lost=1;--yn;}
+                            if(yn>y0) {a1[xn]=1;lost=1;--yn;}
                             break;
                         case 'S':
                             if(yn>0) --yn;
-                            else if(yn==0 && !a1[2*x0+y0+2-xn]) --yn;
-                            if(yn<0) {if(xn==0) a1[2*(x0+1)+y0+1]=1;if(xn==x0) a1[x0+y0+1]=1;a1[2*(x0+1)+y0+1-xn]=1;lost=1;++yn;}
+                            else if(yn==0 && !a1[2*x0+y0-xn]) --yn;
+                            if(yn<0) {a1[2*x0+y0-xn]=1;lost=1;++yn;}
                             break;
                         case 'E':
                             if(xn<x0) ++xn;
-                            else if(xn==x0 && !a1[x0+y0+2-yn]) ++xn;
-                            if(xn>x0) {if(yn==0) a1[x0+y0+2]=1;if(yn==y0) a1[x0]=1;a1[x0+y0+2-yn]=1;lost=1;--xn;};
+                            else if(xn==x0 && !a1[x0+y0-yn]) ++xn;
+                            if(xn>x0) {a1[x0+y0-yn]=1;lost=1;--xn;};
                             break;
                         case 'W':
                             if(xn>0) --xn;
-                            else if(xn==0 && !a1[2*x0+y0+3+yn]) --xn;
-                            if(xn<0) {if(yn==0) a1[2*(x0+1)+y0]=1;if(yn==y0) a1[0]=1;a1[2*(x0+1)+y0+1+yn]=1;lost=1;++xn;}
+                            else if(xn==0 && !a1[2*x0+y0+yn]) --xn;
+                            if(xn<0) {a1[2*x0+y0+yn]=1;lost=1;++xn;}
                             break;
                     }
                     break;
